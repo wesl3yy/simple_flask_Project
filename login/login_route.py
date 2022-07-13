@@ -3,7 +3,7 @@ from flask import render_template, request
 from DAO.data import get_username, get_password
 
 
-@login_.route("/login", methods=("POST", "GET"))
+@login_.route("/", methods=("POST", "GET"))
 def login():
     if request.method == "POST":
         username = request.form["username"]
@@ -12,6 +12,6 @@ def login():
         pas = get_password(password)
         if username != user or password != pas:
             return render_template("/login_failed.html")
-        if username == user and password == pas:
+        else:
             return f"Hello, {user}"
     return render_template("/login.html")
