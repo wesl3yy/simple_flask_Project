@@ -1,9 +1,9 @@
 from login.login_blueprints import login_
-from flask import render_template, request
+from flask import request, redirect, render_template
 from DAO.data import get_username, get_password
 
 
-@login_.route("/", methods=("POST", "GET"))
+@login_.route("/", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         username = request.form["username"]
@@ -11,7 +11,7 @@ def login():
         user = get_username(username)
         pas = get_password(password)
         if username != user or password != pas:
-            return render_template("/login_failed.html")
+            return redirect('/failed')
         else:
-            return f"Hello, {user}"
-    return render_template("/login.html")
+            return redirect('/success')
+    return render_template('/login.html')
