@@ -4,7 +4,7 @@ from DAO.data import get_username, get_password
 
 
 @login_.route("/", methods=["POST", "GET"])
-def login():
+def login() -> "html":
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
