@@ -4,14 +4,14 @@ from DAO.data import get_username, get_password
 
 
 @login_.route("/", methods=["POST", "GET"])
-def login() -> "html":
+def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         user = get_username(username)
         pas = get_password(password)
         if username != user or password != pas:
-            return redirect('/failed')
+            return redirect("/failed")
         else:
-            return redirect('/success')
-    return render_template('/login.html')
+            return redirect("/success")
+    return render_template("/login.html")

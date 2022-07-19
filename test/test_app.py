@@ -1,21 +1,26 @@
-import unittest
+DATA = [
+    {"username": "admin", "password": "123"},
+    {"username": "admin", "password": "1"},
+]
 
-from flask import redirect, url_for
 
-from app import app
-app.testing = True
-
-class AppTestCase(unittest.TestCase):
-    def test_client(self):
-        self.client = app.test_client()
-        response_client = self.client.get("/")
+def test_client(client):
+    with client:
+        response_client = client.get("/")
         assert response_client.status_code == 200
 
-    def test_login(self):
-        self.client = app.test_client()
-        sent = self.client.post('/',data={'username':'admin','password':'123'},follow_redirects=True)
-        received = self.client.post('/success')
-        assert sent == received
 
-if __name__ == "__main__":
-    unittest.main()
+def test_login_success(client):
+    with client:
+        for user in DATA:
+            sent = client.post("/", data=user, follow_redirects=True)
+            if user == {"username": "admin", "password": "123"}:
+                assert sent.request.path == "/success"
+
+
+def test_login_failed(client):
+    with client:
+        for user in DATA:
+            sent = client.post("/", data=user, follow_redirects=True)
+            if user == {"username": "admin", "password": "1"}:
+                assert sent.request.path == "/failed"
