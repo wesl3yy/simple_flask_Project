@@ -12,12 +12,3 @@ def check_login():
     else:
         return make_response(jsonify({"isValid": False}))
 
-
-# @login_.route("/success", methods=["POST", "GET"])
-# def success():
-#     return render_template("/success.html")
-#
-#
-# @login_.route("/failed", methods=["POST", "GET"])
-# def failed():
-#     return render_template("/login_failed.html")
