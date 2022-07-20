@@ -6,7 +6,7 @@ DATA = [
 
 def test_client(client):
     with client:
-        response_client = client.get("/")
+        response_client = client.get('/')
         assert response_client.status_code == 200
 
 
