@@ -3,13 +3,14 @@ from login.login_route import pass_data
 
 login_ = Blueprint("login", __name__)
 
-@login_.route('/', methods=["POST","GET"])
+
+@login_.route("/", methods=["POST", "GET"])
 def check_login():
     data = request.get_json()
     if pass_data(data) == True:
-        return make_response(jsonify({"isValid":True}))
+        return make_response(jsonify({"isValid": True}))
     else:
-        return make_response(jsonify({"isValid":False}))
+        return make_response(jsonify({"isValid": False}))
 
 
 # @login_.route("/success", methods=["POST", "GET"])
